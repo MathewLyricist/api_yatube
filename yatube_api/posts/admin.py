@@ -4,32 +4,30 @@ from posts.models import Comment, Follow, Group, Post
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'text', 'pub_date', 'author', 'group',)
+    list_display = ('pk', 'text', 'pub_date', 'author', 'group')
+    list_display_links = ('text', 'author')
     list_editable = ('group',)
-    search_fields = ('text',)
-    list_filter = ('pub_date',)
+    list_filter = ('pub_date', 'group')
     empty_value_display = '-пусто-'
+    search_fields = ('text',)
 
 
 class GroupAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'title', 'description',)
-    search_fields = ('title',)
-    list_filter = ('title',)
+    list_display = ('pk', 'title', 'slug', 'description')
+    list_display_links = ('title',)
+    list_editable = ('slug',)
     empty_value_display = '-пусто-'
 
 
 class CommentAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'text', 'created', 'post', 'author',)
-    search_fields = ('text', 'post', 'author',)
-    list_filter = ('created', 'post', 'author',)
+    list_display = ('pk', 'text', 'author', 'post', 'created')
+    list_editable = ('text',)
+    list_display_links = ('pk',)
     empty_value_display = '-пусто-'
 
 
 class FollowAdmin(admin.ModelAdmin):
-    list_display = ('user', 'following',)
-    search_fields = ('user', 'following',)
-    list_filter = ('user', 'following',)
-    empty_value_display = '-пусто-'
+    list_display = ('pk', 'user', 'author',)
 
 
 admin.site.register(Post, PostAdmin)
